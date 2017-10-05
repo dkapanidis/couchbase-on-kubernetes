@@ -37,4 +37,12 @@ spec:
                     values: 
                     - couchbase
               topologyKey: "kubernetes.io/hostname"
-
+  volumeClaimTemplates:
+    - metadata:
+        name: couchbase01
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
