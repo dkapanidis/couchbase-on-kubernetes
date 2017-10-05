@@ -1,30 +1,13 @@
 #!/bin/bash
 
 ## Remove Kubernetes Resources
-kubectl delete statefulset consul nomad vault
+kubectl delete deployment couchbase0{1..3}
 
-kubectl delete persistentvolumeclaims \
-  consul-data-consul-0 consul-data-consul-1 consul-data-consul-2 \
-  consul-data-nomad-0 consul-data-nomad-1 consul-data-nomad-2 \
-  consul-data-vault-0 \
-  nomad-data-nomad-0 nomad-data-nomad-1 nomad-data-nomad-2
+kubectl delete persistentvolumeclaims couchbase0{1..3}
 
-kubectl delete services consul consul-internal-load-balancer nomad vault
-
-kubectl delete configmaps consul nomad vault
-
-kubectl delete secrets consul nomad vault
-
+kubectl delete services couchebase0{1..3}
 
 ## Remove GCP Resources
-gcloud compute instance-groups managed delete -q nomad
-gcloud compute instance-templates delete -q nomad-instance-template
+gcloud container clusters delete -q couchbase
 
-gcloud container clusters delete -q nomad
-
-gcloud compute firewall-rules delete -q \
-  default-allow-consul \
-  default-allow-nomad \
-  default-allow-vault
-
-
+gcloud compute firewall-rules delete -q default-allow-couchbase
