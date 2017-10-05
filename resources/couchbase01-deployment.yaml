@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: couchbase01
+  labels:
+    run: couchbase01
+    app: couchbase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: couchbase01
+      app: couchbase
+  template:
+    metadata:
+      labels:
+        run: couchbase01
+        app: couchbase
+    spec:
+      containers:
+      - name: couchbase
+        image: couchbase:community-4.5.1
+        volumeMounts:
+        - name: data
+          mountPath: /opt/couchbase/var
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: couchbase01
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - couchbase
+              topologyKey: "kubernetes.io/hostname"
+

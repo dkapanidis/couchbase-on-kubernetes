@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchbase03
+  labels:
+    run: couchbase03
+spec:
+  selector:
+    run: couchbase03
+  ports:
+  - name: port-1
+    port: 8091
+    protocol: TCP
+    targetPort: 8091
+  - name: port-2
+    port: 8093
+    protocol: TCP
+    targetPort: 8093
+  - name: port-3
+    port: 11210
+    protocol: TCP
+    targetPort: 11210
+  - name: port-4
+    port: 4369
+    protocol: TCP
+    targetPort: 4369
+  type: LoadBalancer
