@@ -16,6 +16,11 @@ spec:
         run: couchbase03
         app: couchbase
     spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "couchbase03"
+        - "couchbase03.default"
       containers:
       - name: couchbase
         image: couchbase:community-4.5.1
@@ -36,12 +41,3 @@ spec:
                     values:
                     - couchbase
               topologyKey: "kubernetes.io/hostname"
-  volumeClaimTemplates:
-    - metadata:
-        name: couchbase03
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi

@@ -1,22 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: couchbase02
+  name: couchbase01
   labels:
-    run: couchbase02
+    run: couchbase01
     app: couchbase
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: couchbase02
+      run: couchbase01
       app: couchbase
   template:
     metadata:
       labels:
-        run: couchbase02
+        run: couchbase01
         app: couchbase
     spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "couchbase01"
+        - "couchbase01.default"
       containers:
       - name: couchbase
         image: couchbase:community-4.5.1
@@ -26,7 +31,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: couchbase02
+          claimName: couchbase01
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -34,15 +39,6 @@ spec:
                 matchExpressions:
                   - key: "app"
                     operator: In
-                    values:
+                    values: 
                     - couchbase
               topologyKey: "kubernetes.io/hostname"
-  volumeClaimTemplates:
-    - metadata:
-        name: couchbase02
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi

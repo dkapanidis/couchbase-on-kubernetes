@@ -52,5 +52,71 @@ kubernetes                      XX.XX.XXX.X     <none>         443/TCP
 
 Do not continue until the above Couchbase services have obtained an external IP address.
 
+## Create the Kubernetes Persistent Volume Claims
+
+For each Couchbase instance we'll create a Persistent Volume and attach the disk to the corresponding instance.
+
+* `couchbase01` - A [Persistent Volume Claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) creates a external storage that connects to couchbase01 instance.
+* `couchbase02` - A Persistent Volume Claim creates a external storage that connects to couchbase02 instance.
+* `couchbase03` - A Persistent Volume Claim creates a external storage that connects to couchbase03 instance.
+
+Create the Couchbase persistent volume claims:
+
+
+```
+kubectl apply -f pvcs
+```
+
+```
+persistentvolumeclaim "couchbase01" created
+persistentvolumeclaim "couchbase02" created
+persistentvolumeclaim "couchbase03" created
+```
+
+Use the `kubectl` command to see the PVCs:
+
+```
+kubectl get pvc
+```
+
+```
+NAME          STATUS    VOLUME                                     CAPACITY   ACCESSMODES   STORAGECLASS   AGE
+couchbase01   Bound     pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           standard       52s
+couchbase02   Bound     pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           standard       51s
+couchbase03   Bound     pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           standard       51s
+```
+
+Use the `kubectl` command to see the Persistent Volumes:
+
+```
+kubectl get pv
+```
+
+```
+NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                 STORAGECLASS   REASON    AGE
+pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           Delete          Bound     default/couchbase01   standard                 1m
+pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           Delete          Bound     default/couchbase02   standard                 1m
+pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   1Gi        RWO           Delete          Bound     default/couchbase03   standard                 1m
+```
+
+## Create the Kubernetes Deployments
+
+Each instance of Couchbase is managed by a separate Deployment with 1 replica. Each deployment has **anti-affinity** rules so that the Pods are located in separate nodes inside the Cluster. An external Persistent Volume is attached at the Pod so that in case of node failure the disk is re-attached where the pod is rescheduled.
+
+* `couchbase01` - Deployment that generates a Pod for couchbase01 instance.
+* `couchbase02` - Deployment that generates a Pod for couchbase02 instance.
+* `couchbase03` - Deployment that generates a Pod for couchbase03 instance.
+
+Create the Couchbase deployments:
+
+```
+kubectl apply -f deployments
+```
+
+```
+deployment "couchbase01" created
+deployment "couchbase02" created
+deployment "couchbase03" created
+```
 
 Next: [Provision The Consul Cluster](05-consul.md)
