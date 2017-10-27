@@ -28,4 +28,8 @@ spec:
     port: 18092
   - name: query-ssl # 18093: Query services (SSL) (4.0+)
     port: 18093
+  - name: erlang
+    port: 4369
+  - name: otp
+    port: 21101
   type: LoadBalancer

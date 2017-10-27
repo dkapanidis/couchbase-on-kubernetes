@@ -46,22 +46,4 @@ gcloud compute firewall-rules create default-allow-couchbase \
   --description "Allow couchbase from anywhere"
 ```
 
-> Couchbase will only be exposed inside the VPC network where Kubernetes and Nomad workers are deployed.
-
-Enable access to the Nomad cluster from anywhere:
-
-```
-gcloud compute firewall-rules create default-allow-nomad \
-  --allow tcp:4646-4647 \
-  --description "Allow nomad from anywhere"
-```
-
-Enable access to the Vault cluster from anywhere:
-
-```
-gcloud compute firewall-rules create default-allow-vault \
-  --allow tcp:8200-8201 \
-  --description "Allow vault from anywhere"
-```
-
-Next: [Provision The Nomad Infrastructure](04-nomad-infrastructure.md)
+Next: [Provision The Couchbase Infrastructure](04-couchbase-infrastructure.md)

@@ -1,8 +1,8 @@
-# Nomad on Kubernetes
+# Couchbase on Kubernetes
 
-The Nomad on Kubernetes tutorial documents how to deploy [Nomad](https://www.nomadproject.io/) on [Kubernetes](https://kubernetes.io/). The following diagram provides a high level overview of the Nomad on Kubernetes architecture.
+The Couchbase on Kubernetes tutorial documents how to deploy [Couchbase](https://www.couchbase.com/) on [Kubernetes](https://kubernetes.io/). The following diagram provides a high level overview of the Couchbase on Kubernetes architecture.
 
-![Nomad on Kubernetes](images/nomad-on-kubernetes.png)
+![Couchbase on Kubernetes](images/couchbase-on-kubernetes.png)
 
 The following components will be deployed to a Kubernetes cluster with minimal CPU and memory allocations to control cost:
 
