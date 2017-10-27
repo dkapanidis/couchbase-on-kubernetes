@@ -5,7 +5,7 @@ kubectl delete deployment couchbase0{1..3}
 
 kubectl delete persistentvolumeclaims couchbase0{1..3}
 
-kubectl delete services couchebase0{1..3}
+kubectl delete services couchbase0{1..3}
 
 ## Remove GCP Resources
 gcloud container clusters delete -q couchbase
