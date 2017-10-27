@@ -6,19 +6,38 @@ The Couchbase on Kubernetes tutorial documents how to deploy [Couchbase](https:/
 
 The following components will be deployed to a Kubernetes cluster with minimal CPU and memory allocations to control cost:
 
-* [Consul](https://www.consul.io/) 0.9.3
-* [Vault](https://www.vaultproject.io/) 0.8.2
-* [Nomad](https://www.nomadproject.io/) 0.6.3
+* [Couchbase](https://www.couchbase.com/) community-4.5.1
+
+## Features
+
+The following features exist with this infrastructure:
+
+* [X] Use of official Couchbase Docker Image
+* [X] Clusterized Couchbase of 3 instances
+* [X] Automatic Self-healing of failing Pods
+* [X] Automatic Self-healing of failing Nodes
+* [X] Couchbase connectivity from outside of the Kubernetes
+* [ ] No automatic Clustering: Clustering process is done manually at first startup.
+* [ ] No automatic Scaling: Scaling of new instances needs generation of new deployments and services.
 
 ## Rationale
 
-Nomad and Kubernetes [have many differences](https://www.nomadproject.io/intro/vs/kubernetes.html) in terms of managing applications but have also been found to [complement each other](https://stackshare.io/circleci/how-circleci-processes-4-5-million-builds-per-month). Nomad is [workload agnostic](https://www.nomadproject.io/docs/drivers/index.html) and supports running non-containerized applications -- broadening the type of workloads you can run across your infrastructure. Other components of the Nomad stack such as Consul and Vault can be leveraged directly within Kubernetes. Consul can provide federated service discovery across multiple Kubernetes clusters and existing platforms such as virtual machines. Vault can provide [robust secrets](https://www.vaultproject.io/intro/use-cases.html) management to Kubernetes workloads including dynamic secret generation.
+Couchbase can be installed either directly on the OS, or using Docker containers to prepare the cluster. There are existing solutions of clustering Couchbase using Docker containers, but they lack some of the features that containers can bring such as self-healing in case of pod or node failure.
 
-Kubernetes can ease the deployment and management of Nomad and related components by leveraging some of Kubernetes advanced features including:
+This tutorial is designed so that the entire flow of clustering can be seen as step-by-step process.
+
+The architecture is a static cluster of 3 instances of Couchbase, using the official docker image of Couchbase. The cluster is also designed so that it can be accessed by a service that resides outside of the Kubernetes cluster.
+
+> It is designed as a tutorial guideline, not for production usage.
+
+Kubernetes can ease the deployment and management of Couchbase by leveraging some of Kubernetes advanced features including:
 
 * [Advanced Scheduling: Affinity and Anti-affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)
-* [Dynamic Storage Provisioning](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#dynamic)
+
+In this tutorial we haven't used support for Stateful Applications or Dynamic Storage Provision, that could enable automatic Scaling:
+
 * [Support for Stateful Applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+* [Dynamic Storage Provisioning](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#dynamic)
 
 ## Tutorial
 
