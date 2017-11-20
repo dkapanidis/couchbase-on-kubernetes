@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: couchbase02-lb
+  name: couchbaselb01
   labels:
-    run: couchbase02-lb
+    run: couchbaselb01
 spec:
   selector:
-    run: couchbase02
+    run: couchbase01
   ports:
   - name: web       # 8091: Couchbase Web console, REST/HTTP interface
     port: 8091

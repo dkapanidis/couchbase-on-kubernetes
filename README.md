@@ -44,18 +44,16 @@ In this tutorial we haven't used support for Stateful Applications or Dynamic St
 * [Prerequisites](docs/01-prerequisites.md)
 * [Install Client Tools](docs/02-client-tools.md)
 * [Provision The Kubernetes Infrastructure](docs/03-kubernetes-infrastructure.md)
-* [Provision The Nomad Infrastructure](docs/04-nomad-infrastructure.md)
-* [Provision The Consul Cluster](docs/05-consul.md)
-* [Provision The Vault Cluster](docs/06-vault.md)
-* [Provision The Nomad Cluster](docs/07-nomad.md)
-* [Provision The Nomad Worker Nodes](docs/08-nomad-worker-nodes.md)
-* [Running Nomad Jobs](docs/09-nomad-jobs.md)
-* [The Consul UI](docs/10-consul-ui.md)
+* [Provision The Couchbase Infrastructure](docs/04-couchbase-infrastructure.md)
 
 ### Clean up
 
 Run the `clean-up` bash script to remove all compute resources created by this tutorial:
 
-```
+```shell
 bash clean-up
 ```
+
+### Credits
+
+A big shout-out to Kelsey Hightower, this tutorial is inspired by the [nomad-on-kubernetes](https://github.com/kelseyhightower/nomad-on-kubernetes) repo.

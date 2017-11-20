@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: couchbase03-lb
+  name: couchbaselb03
   labels:
-    run: couchbase03-lb
+    run: couchbaselb03
 spec:
   selector:
     run: couchbase03
